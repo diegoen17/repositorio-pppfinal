@@ -1,30 +1,133 @@
-/*Estilos del body*/
-body{
-    background-color: #f5f5f5;
+/* --- Colores base (opcional: usar :root variables luego para mantener todo consistente) --- */
+:root{
+  --bg-claro: #F5F5F5;
+  --text-claro: #2e3238;
+  --azul: #1E3A8A;
+  --naranja: #F97316;
+  --bg-oscuro: #0F172A;
+  --text-oscuro: #F8FAFC;
+  --sec-oscuro: #1E293B;
 }
 
-
-/*estilos de footer*/
-ul{
-    list-style-type: none;
-    padding: 0;
+/* modo claro (por defecto) */
+body {
+  background-color: var(--bg-claro);
+  color: var(--text-claro);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-a{
-    text-decoration: none;
-}
-a:hover{
-    text-decoration: underline;
+/* BOTÓN TOGGLE: sin relleno, pero con color apropiado según contexto */
+#modo-toggle {
+  background-color: transparent !important;
+  border: none !important;
+  color: inherit;                /* hereda color del contenedor (más seguro) */
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.15s ease;
+  padding: 0.25rem 0.5rem;
 }
 
-
-/*estilos de la barra de navegacion*/
-nav{
-    background-color: #5b76c0;
+/* Si el toggle está dentro de la navbar (fondo oscuro por defecto), forzamos blanco */
+.navbar #modo-toggle {
+  color: #FFFFFF;
 }
-#link-logo{
-    color: white;
-    font-weight: bold;
-    font-size: 1.5em;
-    text-decoration: none;
+
+/* hover/efecto */
+#modo-toggle:hover {
+  color: var(--naranja);
+  transform: scale(1.05);
+}
+
+/* modo oscuro: asegurar contraste del toggle */
+body.dark-mode #modo-toggle,
+body.dark-mode .navbar #modo-toggle {
+  color: var(--text-oscuro);
+}
+
+/* CARTAS */
+.card {
+  background-color: #FFFFFF;
+  color: var(--azul); /* si querés mantener un título en azul */
+  border: 1px solid #E5E7EB;
+}
+
+/* modo oscuro */
+body.dark-mode {
+  background-color: var(--bg-oscuro);
+  color: var(--text-oscuro);
+}
+
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: var(--sec-oscuro);
+  color: var(--text-oscuro);
+}
+
+body.dark-mode .card {
+  background-color: var(--sec-oscuro);
+  color: #CBD5E1;
+  border: 1px solid #334155;
+}
+
+/* Links en modo oscuro: cuidado con selectores generales */
+body.dark-mode a {
+  color: var(--naranja); /* links en oscuro por defecto */
+}
+body.dark-mode a:hover { text-decoration: underline; }
+
+/* NAVBAR */
+.navbar {
+  background-color: var(--azul);
+}
+.navbar .navbar-brand .navbar-item {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.navbar .nav-link {
+  color: #FFFFFF;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: var(--naranja);
+}
+
+/* FOOTER - sin viñetas, centrado y links apilados */
+footer {
+  background-color: var(--azul);
+  color: #FFFFFF;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+footer li {
+  margin: 0.35rem 0;
+}
+footer a {
+  display: inline-block; /* o block si preferís todo ancho */
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+footer a:hover,
+footer a:focus {
+  color: var(--naranja);
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Foco visible accesible para enlaces y botones */
+a:focus, button:focus {
+  outline: 3px solid rgba(249,115,22,0.15);
+  outline-offset: 3px;
+}
+
+/* Opcional: forcemos que los nav-link no cambien por la regla general body.dark-mode a */
+footer a { 
+  color: #FFFFFF;
 }
