@@ -1,3 +1,66 @@
+<?php
+  session_start();
+
+$dbHost = 'localhost';
+$dbUser = 'root';
+$dbPass = '';
+$dbName = 'cfp61';
+
+$mysqli = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+if ($mysqli->connect_errno) {
+  http_response_code(500);
+  die("Fallo conexión DB: " . $mysqli->connect_error);
+}
+$mysqli->set_charset('utf8mb4');
+
+// ---------- Manejo de logout ----------
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+  session_unset();
+  session_destroy();
+  header('Location: cursos.php'); 
+  exit;
+}
+
+// ---------- Procesar login si llegó POST ----------
+$login_error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+  $username = trim($_POST['username'] ?? '');
+  $password = $_POST['password'] ?? '';
+
+  if ($username === '' || $password === '') {
+    $login_error = 'Faltan credenciales.';
+  } else {
+    $stmt = $mysqli->prepare("SELECT id, username, password_hash, name FROM users WHERE username = ?");
+    if ($stmt) {
+      $stmt->bind_param('s', $username);
+      $stmt->execute();
+      $res = $stmt->get_result();
+      if ($user = $res->fetch_assoc()) {
+        if (password_verify($password, $user['password_hash'])) {
+          // Login OK
+          session_regenerate_id(true);
+          $_SESSION['admin_id'] = $user['id'];
+          $_SESSION['admin_username'] = $user['username'];
+          $_SESSION['admin_name'] = $user['name'];
+          header('Location: cursos.php');
+          exit;
+        } else {
+          $login_error = 'Credenciales inválidas.';
+        }
+      } else {
+        $login_error = 'Credenciales inválidas.';
+      }
+      $stmt->close();
+    } else {
+      $login_error = 'Error interno (prepare).';
+    }
+  }
+}
+
+// ---------- Función para escapar salida (XSS) ----------
+function e($s) { return htmlspecialchars($s ?? '', ENT_QUOTES, 'UTF-8'); }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,10 +98,10 @@
             <a class="nav-link active" aria-current="page" href="../index.html">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../html-secciones/cursos.html">Cursos</a>
+            <a class="nav-link" href="../secciones/cursos.php">Cursos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../html-secciones/contactar.html">Contactar</a>
+            <a class="nav-link" href="../secciones/contactar.php">Contactar</a>
           </li>
         </ul>
 

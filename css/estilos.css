@@ -1,4 +1,4 @@
-/* --- Colores base (opcional: usar :root variables luego para mantener todo consistente) --- */
+/* --- Colores base --- */
 :root{
   --bg-claro: #F5F5F5;
   --text-claro: #2e3238;
@@ -9,7 +9,7 @@
   --sec-oscuro: #1E293B;
 }
 
-/* modo claro (por defecto) */
+/* modo claro */
 body {
   background-color: var(--bg-claro);
   color: var(--text-claro);
