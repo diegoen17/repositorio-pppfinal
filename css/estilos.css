@@ -14,20 +14,20 @@ body {
   background-color: var(--bg-claro);
   color: var(--text-claro);
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* BOTÓN TOGGLE: sin relleno, pero con color apropiado según contexto */
+/* BOTÓN TOGGLE: sin relleno */
 #modo-toggle {
   background-color: transparent !important;
   border: none !important;
-  color: inherit;                /* hereda color del contenedor (más seguro) */
+  color: inherit;                
   font-weight: 500;
   cursor: pointer;
   transition: color 0.25s ease, transform 0.15s ease;
   padding: 0.25rem 0.5rem;
 }
 
-/* Si el toggle está dentro de la navbar (fondo oscuro por defecto), forzamos blanco */
 .navbar #modo-toggle {
   color: #FFFFFF;
 }
@@ -38,7 +38,7 @@ body {
   transform: scale(1.05);
 }
 
-/* modo oscuro: asegurar contraste del toggle */
+/* modo oscuro, asegurar contraste del toggle */
 body.dark-mode #modo-toggle,
 body.dark-mode .navbar #modo-toggle {
   color: var(--text-oscuro);
@@ -47,7 +47,7 @@ body.dark-mode .navbar #modo-toggle {
 /* CARTAS */
 .card {
   background-color: #FFFFFF;
-  color: var(--azul); /* si querés mantener un título en azul */
+  color: var(--azul);
   border: 1px solid #E5E7EB;
 }
 
@@ -69,9 +69,9 @@ body.dark-mode .card {
   border: 1px solid #334155;
 }
 
-/* Links en modo oscuro: cuidado con selectores generales */
+/* Links en modo oscuro */
 body.dark-mode a {
-  color: var(--naranja); /* links en oscuro por defecto */
+  color: var(--naranja); 
 }
 body.dark-mode a:hover { text-decoration: underline; }
 
@@ -108,7 +108,7 @@ footer li {
   margin: 0.35rem 0;
 }
 footer a {
-  display: inline-block; /* o block si preferís todo ancho */
+  display: inline-block; 
   color: #FFFFFF;
   text-decoration: none;
   font-weight: 500;
@@ -127,7 +127,6 @@ a:focus, button:focus {
   outline-offset: 3px;
 }
 
-/* Opcional: forcemos que los nav-link no cambien por la regla general body.dark-mode a */
 footer a { 
   color: #FFFFFF;
 }

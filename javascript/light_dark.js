@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Cargar preferencia guardada o detectar preferencia de SO
+  //detectar preferencia de SO
   const preferenciaGuardada = localStorage.getItem('modo');
   if (preferenciaGuardada === 'oscuro') {
     body.classList.add('dark-mode');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // si no hay preferencia guardada, respetar la preferencia del sistema
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       body.classList.add('dark-mode');
-      localStorage.setItem('modo', 'oscuro'); // opcional: podemos no guardar aún, pero lo dejo para persistencia
+      localStorage.setItem('modo', 'oscuro');
       actualizarToggle('oscuro');
     } else {
       actualizarToggle('claro');
