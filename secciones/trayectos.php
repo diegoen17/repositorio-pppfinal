@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CFP-Cursos</title>
+  <title>CFP-Inicio</title>
   <link rel="icon" href="../imagenes/cfp-logo.png" type="image/png">
   <!-- CSS BOOTSTRAP -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <!-- ICONOS BOOTSTRAP -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 
   <!-- CSS PERSONALIZADO -->
   <link rel="stylesheet" href="../css/estilos.css">
@@ -38,10 +39,10 @@
               <a class="nav-link active" href="../index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../secciones/trayectos.php">Trayectos</a>
+              <a class="nav-link" aria-current="page" href="../secciones/trayectos.php">Trayectos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="../secciones/contactar.html">Contactar</a>
+              <a class="nav-link" href="../secciones/contactar.html">Contactar</a>
             </li>
           </ul>
 
@@ -56,40 +57,53 @@
     </nav>
   </header>
 
-  <main> <!-- INICIO DEL MAIN -->
-    <div class="container-fluid">
-      <div class="row">
+  <?php
+  require_once "../api/config.php"; 
+  
+  $sql = "SELECT * FROM trayectos ORDER BY created_at DESC";
+  $result = $mysqli->query($sql);
+  ?>
 
-        <div class="col-sm-8">
-          <h2 class="text-center">Ubicación</h2>
-          <p class="text-center">Rio Bermejo 278, La Criolla, Argentina</p>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13641.079918236896!2d-58.1257242400223!3d-31.26862654027374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95adecae2de3210d%3A0xf7035fb22c8c2c8d!2sLa%20Criolla%2C%20Entre%20R%C3%ADos!5e0!3m2!1ses!2sar!4v1763068512457!5m2!1ses!2sar"
-            width="100%" height="330" style="border:0;" allowfullscreen="" loading="lazy">
-          </iframe>
-        </div>
-        <div class="col-sm-4">
-          <h2 class="text-center">Contactar</h2>
-          <form action="../base-de-datos/guardar_contacto.php" method="POST"> <!-- Formulario de contacto -->
-            <div class="sm-4">
-              <label for="nombre" class="form-label">Nombre:</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" required>
+  <main> <!-- INICIO DEL MAIN -->
+    <h1 class="text-center">Trayectos</h1>
+    <div class="container my-4">
+      <div class="row g-4" id="lista-trayectos">
+        <?php while ($row = $result->fetch_assoc()): ?> <!-- Inicio del bucle para generar las cards dinamicas -->
+          <div class="col-md-4">
+            <div class="card h-100">
+              <img src="../imagenes/trayectos/<?php echo $row['imagen']; ?>" class="card-img-top" alt="">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $row['nombre']; ?></h5>
+                <p class="card-text"><?php echo $row['descripcion']; ?></p>
+
+                <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#oc-<?php echo $row['ID']; ?>">
+                  Más información
+                </button>
+              </div>
             </div>
-            <div class="sm-4">
-              <label for="email" class="form-label">Email:</label>
-              <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="sm-4">
-              <label for="mensaje" class="form-label">Mensaje:</label>
-              <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
-            </div> <br>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>
-          <br>
-        </div>
+          </div>
+        <?php endwhile; ?>
       </div>
     </div>
-  </main>
+  </main> <!-- FIN DEL MAIN -->
+
+  <?php
+$result2 = $mysqli->query($sql);
+?>
+
+<?php while ($row = $result2->fetch_assoc()): ?> <!-- Offcanvas dinamico para cada trayecto -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="oc-<?php echo $row['ID']; ?>">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title"><?php echo $row['nombre']; ?></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p><strong>Horario:</strong> <?php echo $row['horario']; ?></p>
+            <p><?php echo $row['descripcion']; ?></p>
+        </div>
+    </div>
+<?php endwhile; ?>
+
 
   <footer> <!-- INICIO DEL FOOTER -->
     <div class="container-fluid">
@@ -124,10 +138,12 @@
       </div>
     </div>
   </footer>
+
   <!-- JS BOOTSTRAP -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+
   <!-- JS MODO CLARO/OSCURO -->
   <script src="../javascript/light_dark.js"></script>
 </body>

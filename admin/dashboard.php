@@ -60,7 +60,7 @@ $flash = $_GET['flash'] ?? '';
             <h5 class="card-title"><?=htmlspecialchars($t['nombre'])?></h5>
             <p class="card-text"><?=htmlspecialchars($t['descripcion'] ? substr($t['descripcion'],0,120).'...' : $t['horario'])?></p>
             <div class="mt-auto d-flex justify-content-between">
-              <a class="btn btn-sm btn-outline-primary" href="../secciones/trayectos.html#card-<?=htmlspecialchars($t['ID'])?>">Ver</a>
+              <a class="btn btn-sm btn-outline-primary" href="../secciones/trayectos.php#card-<?=htmlspecialchars($t['ID'])?>">Ver</a>
               <form method="post" action="../api/eliminar_trayecto.php" onsubmit="return confirm('Seguro?');">
                 <input type="hidden" name="id" value="<?=htmlspecialchars($t['ID'])?>">
                 <button class="btn btn-sm btn-danger">Borrar</button>
