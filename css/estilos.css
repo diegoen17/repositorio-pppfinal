@@ -130,3 +130,47 @@ a:focus, button:focus {
 footer a { 
   color: #FFFFFF;
 }
+
+/*carousel textos*/
+.caption-bg {
+  background: rgba(0, 0, 0, 0.55); /* fondo oscuro translúcido */
+  padding: 1rem 1.2rem;          /* espacio interno */
+  border-radius: 10px;             /* bordes redondeados */
+  backdrop-filter: blur(3px);    /* efecto de desenfoque */
+}
+
+/* Asegura que el texto sea blanco */
+.caption-bg h5,
+.caption-bg p {
+  color: #fff;
+}
+
+/* Nota al pie del carrusel */
+.nota-ia{
+  font-size: 0.75rem;
+  color: #b9b7b7;
+  text-align: center;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+
+/* ESTILOS OFFCANVAS */
+/* fondo y texto por defecto del offcanva */
+.offcanvas {
+  background-color: #ffffff; 
+  color: #1f2937;           
+}
+
+/* modo oscuro: fondo oscuro y texto claro */
+body.dark-mode .offcanvas {
+  background-color: var(--sec-oscuro); /*definido en root*/
+  color: var(--text-oscuro);
+}
+
+/* asegurar que títulos y párrafos  */
+.offcanvas .offcanvas-title,
+.offcanvas .offcanvas-body h1,
+.offcanvas .offcanvas-body p {
+  color: inherit;
+}
