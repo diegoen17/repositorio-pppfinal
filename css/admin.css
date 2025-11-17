@@ -1,0 +1,66 @@
+:root { /* definir colores como en index.html */
+  --color-primario: #0056b3;
+  --color-secundario: #ffc107;
+  --color-fondo: #f7f7f7;
+  --color-texto: #333;
+}
+
+/* estilos para navbar de admin*/
+.admin-navbar {
+  background-color: var(--color-primario);
+}
+
+.admin-navbar a {
+  color: white !important;
+  font-weight: 600;
+}
+
+/* estilos para tablas en admin */
+table {
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+}
+
+thead {
+  background: var(--color-primario);
+  color: white;
+}
+
+tbody tr:hover {
+  background: rgba(0, 86, 179, 0.1);
+}
+
+/* estilos para botones */
+.btn-primario {
+  background-color: var(--color-primario);
+  border-color: var(--color-primario);
+  color: white;
+}
+
+.btn-peligro {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-primario:hover,
+.btn-peligro:hover {
+  opacity: .9;
+}
+
+/* estilos generales */
+body {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: Arial, sans-serif;
+}
+
+ /* estilos para cards en admin */
+.admin-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
