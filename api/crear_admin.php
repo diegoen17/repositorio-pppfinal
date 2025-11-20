@@ -1,6 +1,5 @@
 <?php
 require __DIR__ . '/config.php';
-
 //Crear tabla users
 $sql = "CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
